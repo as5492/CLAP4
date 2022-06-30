@@ -1,0 +1,66 @@
+#include <stdio.h>
+struct student {
+    char firstName[50];
+    int roll;
+    float height,weight,bmi;
+}s[2];
+//File Declaration
+FILE *print1;
+FILE *print2;
+int main() {
+    int i;
+    print1 = fopen("BMI.txt","w");
+    print2 = fopen("BMI2.txt","w");
+    printf("Enter information of students:\n");
+
+    // storing information
+    for (i = 0; i < 2; ++i) {
+        s[i].roll = i + 1;
+        printf("\nFor roll number%d,\n", s[i].roll);
+        printf("Enter first name: ");
+        scanf("%s", s[i].firstName);
+        printf("Enter height in metres: ");
+        scanf("%f", &s[i].height);
+        printf("Enter weight in kilograms: ");
+        scanf("%f", &s[i].weight);
+        
+    s[i].bmi = ((s[i].weight) / (s[i].height * s[i].height)); 
+    }
+    printf("Displaying Information:\n\n");
+
+    // displaying information
+    for (i = 0; i < 2; ++i) {
+        printf("\nRoll number: %d\n", i + 1);
+        printf("First name: ");
+        puts(s[i].firstName);
+        printf("BMI: %.1f", s[i].bmi);
+        printf("\n");
+        if(s[i].bmi < 15)  
+            printf("Your BMI category is: Starvation\n");
+        else if(s[i].bmi >= 15.1 && s[i].bmi <= 17.5)  
+            printf("Your BMI category is: Anorexic\n");  
+        else if(s[i].bmi >= 17.6 && s[i].bmi <= 18.5)  
+            printf("Your BMI category is: Underweight\n");  
+        else if(s[i].bmi >= 18.6 && s[i].bmi <= 24.9)  
+            printf("Your BMI category is: Ideal\n");  
+        else if(s[i].bmi >= 25 && s[i].bmi <= 25.9)  
+            printf("Your BMI category is: Overweight\n");  
+        else if(s[i].bmi >= 30 && s[i].bmi <= 30.9)  
+            printf("Your BMI category is: Obese\n");  
+        else if(s[i].bmi >= 40)  
+            printf("Your BMI category is: Morbidly Obese\n");  
+        else
+            printf("Wrong entry\n");  }
+        //Displaying in New File
+        for(i=0;i<2;i++)
+        { switch(i)
+        { case 1:
+            fprintf(print1,"Name: %s\nBMI: %.1f",s[0].firstName,s[0].bmi);
+          case 2:
+            fprintf(print2,"Name: %s\nBMI: %.1f",s[1].firstName,s[1].bmi);}
+    }  
+    fclose(print1);
+    fclose(print2);
+    
+    return 0;
+}
